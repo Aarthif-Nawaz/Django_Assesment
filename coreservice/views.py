@@ -9,13 +9,14 @@ from .cart import Cart
 
 
 class VehicleView(APIView):
+
     def get(self, request, format=None):
         vehicle_id = request.GET.get('vehicle_id')
         if vehicle_id:
             vehicle = Vehicles.objects.filter(id=vehicle_id)
             if len(vehicle) > 0 :
-                serialzer = VehicleSerializer(vehicle)
-                return Response(serialzer.data,
+                serialzer = VehicleSerializer(vehicle, many=True)
+                return Response(serialzer.data[0],
                                 status=status.HTTP_200_OK)  # As a client, I want to view the details of a product, so I can see if the product satisfies my needs
             else:
                 return Response({'Error': 'Vehicle Does Not Exist!'}, status=status.HTTP_404_NOT_FOUND)
@@ -67,8 +68,8 @@ class OrderView(APIView):
         if order_id:
             order = Order.objects.filter(id=order_id)
             if len(order) > 0 :
-                serialzer = OrderSerializer(order)
-                return Response(serialzer.data,
+                serialzer = OrderSerializer(order, many=True)
+                return Response(serialzer.data[0],
                                 status=status.HTTP_200_OK)
             else:
                 return Response({'Error': 'Order Does Not Exist!'}, status=status.HTTP_404_NOT_FOUND)
@@ -112,6 +113,8 @@ class OrderView(APIView):
             serializer = OrderSerializer(data=order_data)
             if serializer.is_valid():
                 serializer.save()
+                cart = Cart(request)
+                cart.clear() # remove the contents from the cart after placing the order, so a new cart is ready for the user
                 return Response({'Success': 'Successfully Registered Order'}, status=status.HTTP_200_OK)
             return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:

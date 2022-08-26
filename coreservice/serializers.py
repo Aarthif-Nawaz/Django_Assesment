@@ -4,45 +4,35 @@ from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
         fields = (
             'username',
             'password'
         )
+        model = User
 
 
 class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
+        fields = '__all__'
         model = Vehicles
-        fields = (
-            'id',
-            'type',
-            'name',
-            'description',
-            'no_of_wheels',
-            'price',
-            'image',
-            'date_added',
-            'get_absolute_url',
-            'get_image',
-        )
+
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OrderItem
         fields = (
             'id',
             'vehicle',
             'quantity'
         )
+        model = OrderItem
+
 
 
 class OrderSerializer(serializers.ModelSerializer):
     delivery_date = fields.DateField(input_formats=['%Y-%m-%d'])
 
     class Meta:
-        model = Order
         fields = (
             'id',
             'user',
@@ -51,3 +41,4 @@ class OrderSerializer(serializers.ModelSerializer):
             'delivery_date',
             'ordererd'
         )
+        model = Order

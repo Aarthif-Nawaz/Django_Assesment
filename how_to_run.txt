@@ -1,17 +1,21 @@
 1. Run $pip install -r requirements.txt
-2. Create database on postgressql as autocompany
-    2a. user - postgres
-    2b. db - autocompany
-    2c. pass - 1234
-3. Run python manage.py makemigrations
-4. Run python manage.py migrate
-5. Run python manage.py runserver
+2. Run python manage.py makemigrations
+3. Run python manage.py migrate
+4. Run python manage.py runserver
 
 --------
 To Add Products for clients to buy
 --------
-1. create admin
-2. insert products to the db
+1. create admin - Run python manage.py createsuperuser
+
+Already created admin
+    - username - Aarthif
+    - password - 1234
+
+2. insert products to the db if you wish
+
+Already inserted 3 vehicles to the db
+
 ---------
 
 APIS
@@ -20,7 +24,6 @@ APIS
 To add, remove, update a cart
 -----------------------------
 /api/v1/cart/ => [GET]
-/api/v1/cart/?vehicle_id={} => [GET]
 /api/v1/cart/  ---- body {vehicle_id:value} => [POST]
 /api/v1/cart/?vehicle_id ---- body {quantity:value} => [PUT]
 /api/v1/cart/?vehicle_id => [DELETE]
@@ -28,6 +31,7 @@ To add, remove, update a cart
 To view products
 ----------------
 /api/v1/vehicles/ => [GET]
+/api/v1/vehicles/?vehicle_id={} => [GET]
 
 To View , add order
 -------------------
