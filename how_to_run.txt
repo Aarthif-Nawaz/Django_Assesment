@@ -41,3 +41,5 @@ To View , add order
 
 ---------------------
 All Stories were covered , the relevent code highlighting it have been put a "#"
+
+delivery_date => format {yyyy-mm-dd}
